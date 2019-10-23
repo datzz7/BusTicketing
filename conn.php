@@ -1,9 +1,9 @@
 <?php 
 
-$server="localhost";
-$user="root";
-$password="";
-$dbname="bus_ticketing";
+$server="remotemysql.com";
+$user="Vtkw066er2";
+$password="LEDQ2t9Fuu";
+$dbname="Vtkw066er2";
 
 $conn = new mysqli($server, $user, $password, $dbname);
 
