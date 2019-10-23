@@ -1,0 +1,23 @@
+body {
+	background-color: white;
+  	padding-top: 54px;
+}
+
+@media (min-width: 992px) {
+  body {
+    padding-top: 56px;
+  }
+}
+
+.card {
+  height: 100%;
+
+}
+.card-img-top{
+	height: 50%;
+}
+.jumbotron{
+	/*background-image: url("1p.jpg");*/
+	background-size: cover;
+	color: black;
+}

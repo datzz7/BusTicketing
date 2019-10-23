@@ -1,0 +1,17 @@
+.jumbotron{
+	text-align: center;
+	margin-top: 100px;
+	background-image: url("ftlp.jpg");
+	background-size: 100% 100%;
+
+}
+#list-gp{
+	margin-left: 10px;
+}
+
+body{
+	background-image: url("artist.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+
+}

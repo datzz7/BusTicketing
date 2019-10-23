@@ -1,0 +1,22 @@
+BEGIN
+	DECLARE userId INT;
+    DECLARE done INT DEFAULT FALSE;
+    DECLARE accounts CURSOR FOR Select id FROM users;
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+    
+    DELETE FROM `temp_users_list`;
+    
+    OPEN accounts;
+    
+    read_loop: LOOP
+    FETCH accounts INTO userId;
+    IF done THEN
+      LEAVE read_loop;
+    END IF;
+    	INSERT INTO temp_users_list SELECT U.id, U.email, U.firstname, U.lastname, S.date_subscribed, S.validity FROM users U left join subscription S on U.id = S.id WHERE U.id = userId ORDER BY S.validity DESC LIMIT 1;
+    END LOOP read_loop;
+    
+    CLOSE accounts;
+    
+    SELECT * FROM temp_users_list WHERE validity>=CURRENT_DATE();
+END
