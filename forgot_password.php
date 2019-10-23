@@ -9,9 +9,9 @@ use PHPMailer\PHPMailer\Exception;
 // Load Composer's autoloader
 require 'vendor/autoload.php';
 // Instantiation and passing `true` enables exceptions
- if($_SERVER['REQUEST_METHOD']=='POST'){
+ //if($_SERVER['REQUEST_METHOD']=='POST'){
 
-		$emailTo = $_POST['email'];
+		$emailTo = "skreamsure@gmail.com";//$_POST['email'];
 		$code = uniqid(true);
 
 		$delete = "DELETE FROM temp_password_reset where email ='$emailTo'";
@@ -77,5 +77,5 @@ require 'vendor/autoload.php';
 		mysqli_close($conn);
 	}
 	
- }
+ //}
 ?>
