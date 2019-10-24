@@ -19,10 +19,11 @@ $currentdate = date("Y/m/d");
 		$validitydate = date("Y/m/d", $d);
 
 
-		$sql = "INSERT INTO subscription(id, date_subscribed, validity, qr_code) VALUES ('$uniqueID','$currentdate', '$validitydate', '$qr_code')";
+		$sql = "INSERT INTO subscription(id,type, date_subscribed, validity, qr_code) VALUES ('$uniqueID',
+		'7Days','$currentdate', '$validitydate', '$qr_code')";
 		$conn->query($sql);
 
-		$sql2 = "INSERT INTO payment(id,subno, type,amount) VALUES('$uniqueID', (SELECT subno from subscription where id='$uniqueID' ORDER BY subno DESC LIMIT 1), 300), '7Days',";
+		$sql2 = "INSERT INTO payment(id,subno, amount) VALUES('$uniqueID',(SELECT subno from subscription where id='$uniqueID' ORDER BY subno DESC LIMIT 1), 300)";
 		$conn->query($sql2);
 
 		$conn->close();
@@ -33,10 +34,11 @@ $currentdate = date("Y/m/d");
 		$validitydate = date("Y/m/d", $d);
 
 
-		$sql1 = "INSERT INTO subscription(id, date_subscribed, validity, qr_code) VALUES ('$uniqueID','$currentdate' , '$validitydate', '$qr_code')";
+		$sql1 = "INSERT INTO subscription(id,type ,date_subscribed, validity, qr_code) VALUES ('$uniqueID',
+		'15Days','$currentdate' , '$validitydate', '$qr_code')";
 		$conn->query($sql1);
 
-		$sql2 = "INSERT INTO payment(id,type,subno, amount) VALUES('$uniqueID', '15Days',(SELECT subno from subscription where id='$uniqueID' ORDER BY subno DESC LIMIT 1), 600)";
+		$sql2 = "INSERT INTO payment(id,subno, amount) VALUES('$uniqueID', '15Days',(SELECT subno from subscription where id='$uniqueID' ORDER BY subno DESC LIMIT 1), 600)";
 		$conn->query($sql2);
 		
 		$conn->close();
@@ -48,10 +50,11 @@ $currentdate = date("Y/m/d");
 		$validitydate = date("Y/m/d", $d);
 
 
-		$sql1 = "INSERT INTO subscription(id, date_subscribed, validity, qr_code) VALUES ('$uniqueID','$currentdate' , '$validitydate', '$qr_code')";
+		$sql1 = "INSERT INTO subscription(id, type,date_subscribed, validity, qr_code) VALUES ('$uniqueID',
+		'30Days','$currentdate' , '$validitydate', '$qr_code')";
 		$conn->query($sql1);
 
-		$sql2 = "INSERT INTO payment(id, type,subno, amount) VALUES('$uniqueID', '30Days',(SELECT subno from subscription where id='$uniqueID' ORDER BY subno DESC LIMIT 1), 1100)";
+		$sql2 = "INSERT INTO payment(id,subno, amount) VALUES('$uniqueID', (SELECT subno from subscription where id='$uniqueID' ORDER BY subno DESC LIMIT 1), 1100)";
 		$conn->query($sql2);
 		
 		$conn->close();
