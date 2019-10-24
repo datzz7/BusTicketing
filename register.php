@@ -23,7 +23,7 @@ $uniqueID = $uniqueIDgenerator;
 $email = $_POST['email'];
 $firstname = $_POST["firstname"];
 $lastname = $_POST["lastname"];
-$password = $_POST["password"];
+$password =$_POST["password"];
 $subscription = $_POST["subscription"];
 $password = md5($password);
 $qr_code = md5(uniqid());
@@ -41,7 +41,7 @@ $currentdate = date("Y/m/d");
  // $result['exists'] = array();
 
 
-if($_SERVER['REQUEST_METHOD']=='POST'){
+//if($_SERVER['REQUEST_METHOD']=='POST'){
 
 	if($subscription == "7Days"){
 
@@ -53,7 +53,8 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 		$sql1 =	"INSERT INTO users (id, email, firstname, lastname, password) VALUES ('$uniqueID','$email','$firstname','$lastname', '$password')";	
 		$conn->query($sql1);
 
-		$sql2 = "INSERT INTO subscription(id, date_subscribed, validity, qr_code) VALUES ('$uniqueID','$currentdate' , '$validitydate', '$qr_code')";
+		$sql2 = "INSERT INTO subscription(id, type ,date_subscribed, validity, qr_code) VALUES ('$uniqueID',
+		'7Days','$currentdate' , '$validitydate', '$qr_code')";
 		$conn->query($sql2);
 
 		$sql3 = "INSERT INTO payment(id,subno, amount) VALUES('$uniqueID', (SELECT subno from subscription where id='$uniqueID'), 300)";
@@ -72,7 +73,8 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 		$conn->query($sql1);
 
 
-		$sql2 = "INSERT INTO subscription(id, date_subscribed, validity, qr_code) VALUES ('$uniqueID','$currentdate' , '$validitydate', '$qr_code')";
+		$sql2 = "INSERT INTO subscription(id, type ,date_subscribed, validity, qr_code) VALUES ('$uniqueID',
+		'15Days','$currentdate' , '$validitydate', '$qr_code')";
 		$conn->query($sql2);
 
 		$sql3 = "INSERT INTO payment(id,subno, amount) VALUES('$uniqueID', (SELECT subno from subscription where id='$uniqueID'), 600)";
@@ -92,7 +94,8 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 		$conn->query($sql1);
 
 
-		$sql2 = "INSERT INTO subscription(id, date_subscribed, validity, qr_code) VALUES ('$uniqueID','$currentdate' , '$validitydate', '$qr_code')";
+		$sql2 = "INSERT INTO subscription(id, type ,date_subscribed, validity, qr_code) VALUES ('$uniqueID',
+		'30Days','$currentdate' , '$validitydate', '$qr_code')";
 		$conn->query($sql2);
 
 		$sql3 = "INSERT INTO payment(id,subno, amount) VALUES('$uniqueID', (SELECT subno from subscription where id='$uniqueID'), 1100)";
@@ -107,7 +110,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 		
 		// mysqli_close($conn);
 
-}
+//}
 // else{		
 
 // 			$res['message'] ="1";
