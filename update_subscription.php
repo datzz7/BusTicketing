@@ -22,7 +22,7 @@ $currentdate = date("Y/m/d");
 		$sql = "INSERT INTO subscription(id, date_subscribed, validity, qr_code) VALUES ('$uniqueID','$currentdate', '$validitydate', '$qr_code')";
 		$conn->query($sql);
 
-		$sql2 = "INSERT INTO payment(id,type,subno, amount) VALUES('$uniqueID', '7Days',(SELECT subno from subscription where id='$uniqueID' ORDER BY subno DESC LIMIT 1), 300)";
+		$sql2 = "INSERT INTO payment(id,subno, type,amount) VALUES('$uniqueID', (SELECT subno from subscription where id='$uniqueID' ORDER BY subno DESC LIMIT 1), 300), '7Days',";
 		$conn->query($sql2);
 
 		$conn->close();
