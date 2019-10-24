@@ -38,7 +38,7 @@ $currentdate = date("Y/m/d");
 		'15Days','$currentdate' , '$validitydate', '$qr_code')";
 		$conn->query($sql1);
 
-		$sql2 = "INSERT INTO payment(id,subno, amount) VALUES('$uniqueID', '15Days',(SELECT subno from subscription where id='$uniqueID' ORDER BY subno DESC LIMIT 1), 600)";
+		$sql2 = "INSERT INTO payment(id,subno, amount) VALUES('$uniqueID', (SELECT subno from subscription where id='$uniqueID' ORDER BY subno DESC LIMIT 1), 600)";
 		$conn->query($sql2);
 		
 		$conn->close();
