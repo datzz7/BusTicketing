@@ -14,7 +14,7 @@ if(!isset($_SESSION['username']))
     <meta name="description" content="">
     <meta name="author" content="">
   
-    <title>All Users List</title>
+    <title>All Users</title>
 
     <link href="bootstrap/css/w3.css" rel="stylesheet">
       <style type="text/css">
@@ -44,6 +44,7 @@ if(!isset($_SESSION['username']))
           <a href="arts.php"  class="w3-bar-item w3-button">Artists List</a> -->
           <a href="users_list_highlight.php" type="submit" class="w3-bar-item w3-button">All Users List</a>
           <a href="valid_users_highlight.php" class="w3-bar-item w3-button">Users with valid tickets</a>
+          <a href="total_highlight.php" class="w3-bar-item w3-button">Total</a>
           <a href="logging_out.php" class="w3-bar-item w3-button">Log Out</a>
         </div>
     </form>
