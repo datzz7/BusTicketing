@@ -33,6 +33,9 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
 
 		if($row['validity']>=$currentdate){
 
+			$sql_passengers = "INSERT INTO total_passengers (date_transac,passengers) VALUES ('$currentdate',1) ON DUPLICATE KEY UPDATE passengers = passengers +1 ";
+			$conn->query($sql_passengers);
+
 			$result['status'] ="Active";
 			echo json_encode($result);
 
