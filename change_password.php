@@ -3,13 +3,14 @@
 require 'conn.php';
 
 
-//if($_SERVER['REQUEST_METHOD']=='POST'){
-
+if($_SERVER['REQUEST_METHOD']=='POST'){
+	
+	$email = $_POST['email'];
 	$code = $_POST['code'];
 	$password = $_POST['password'];
 	$password = md5($password);
 
-	$sql = "SELECT * FROM temp_password_reset WHERE code = '$code' ";
+	$sql = "SELECT * FROM temp_password_reset WHERE code = '$code' AND email = '$email'";
 	$response = mysqli_query($conn, $sql);
 
 	if(mysqli_num_rows($response)==1){
@@ -21,7 +22,7 @@ require 'conn.php';
 		
 		if($change_pass){
 
-			$delete = "DELETE FROM temp_password_reset WHERE code = '$code'";
+			$delete = "DELETE FROM temp_password_reset WHERE code = '$code' AND email = '$email'";
 			mysqli_query($conn, $delete);
 
 			$result['result'] = "Updated";
@@ -36,5 +37,5 @@ require 'conn.php';
 		echo json_encode($result);
 		mysqli_close($conn);
 	}
-//}
+}
 ?>
