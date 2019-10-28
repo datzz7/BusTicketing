@@ -43,7 +43,16 @@ $result = $conn-> query($sql);
 
 
 if ($result->num_rows > 0) {
-       echo "<table><tr><th>Id</th><th>Email</th><th>Firstname</th><th>Lastname</th><th>Type</th><th>Date Subscribed</th><th>Validity</th></tr>";
+       echo "<table>
+       <tr>
+       <th>Id</th>
+       <th>Email</th>
+       <th>Firstname</th>
+       <th>Lastname</th>
+       <th>Type</th>
+       <th>Date Subscribed</th>
+       <th>Validity</th>
+       </tr>";
     // output data of each row
     while($row = $result->fetch_assoc()) {
         echo "<tr><td>" . $row["id"] ."</td><td>" . $row["email"].  "</td><td>" . $row['firstname'] . "</td><td>" . $row['lastname']  .  "</td><td>" . $row['type'] ."</td><td>" . 
@@ -51,7 +60,16 @@ if ($result->num_rows > 0) {
     }
     echo "</table>";
  } else {
-     echo "<table><tr><th>Id</th><th>Email</th><th>Firstname</th><th>Lastname</th><th>Type</th><th>Date Subscribed</th><th>Validity</th></tr>";
+     echo "<table>
+     <tr>
+     <th>Id</th>
+     <th>Email</th>
+     <th>Firstname</th>
+     <th>Lastname</th>
+     <th>Type</th>
+     <th>Date Subscribed</th>
+     <th>Validity</th>
+     </tr>";
      
         echo "<tr><td>" ."0" ."</td><td>" ."0".  "</td><td>" . "0" . "</td><td>" . "0"  .  "</td><td>" . "0" . "</td><td>" .  
         "0". "</td><td>" . "0".  "</td></tr>";
