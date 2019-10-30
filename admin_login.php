@@ -68,7 +68,7 @@
                     <input type="password" name="password" class="form-control"/>
                   </div>
                   <input type="submit" name="login" value="Login" class="btn btn-primary" />
-                  <!-- <a href="admin_signup.php" color="red" class="btn btn-primary">Sign up</a> -->
+                   <a href="admin_signup.php" color="red" class="btn btn-primary">Sign up</a> 
                 </form>
               </div>
             </div>
