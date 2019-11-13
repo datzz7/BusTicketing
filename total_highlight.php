@@ -103,7 +103,7 @@ if(isset($_POST['submit'])){
     (SELECT COUNT(*) FROM subscription where type = '30Days' and date_subscribed = '$date') as 30Day,
     (SELECT passengers from total_passengers WHERE date_transac='$date') as passengers,
     (SELECT SUM(passengers) from total_passengers) as total_passengers
-    FROM users U inner join subscription S on U.id=S.id and s.date_subscribed = '$date'";
+    FROM users U inner join subscription S on U.id=S.id and S.date_subscribed = '$date'";
     $result = $conn-> query($sql);
 
 if ($result->num_rows > 0) {
