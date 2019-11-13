@@ -34,7 +34,7 @@ if(!isset($_SESSION['username']))
   <a href="users_list_highlight.php" class="w3-bar-item w3-button">All Users list</a>
   <a href="valid_users_highlight.php" class="w3-bar-item w3-button">Users with valid tickets</a>
   <a href="total_highlight.php" class="w3-bar-item w3-button">Sales Reports</a>
-  <a href="add_prices_highlight.php" class="w3-bar-item w3-button">Add prices</a>
+     <a href="add_prices_highlight.php" class="w3-bar-item w3-button">Add prices</a>
   <a href="logging_out.php" class="w3-bar-item w3-button">Log Out</a>
 </div>
 </form>
@@ -49,44 +49,10 @@ if(!isset($_SESSION['username']))
 
 
 <?php
+
 ?>
   </body>
 </html>
 
-
-  
-    
-  <!--
-       
-      <div id="wrapper">
-        <div id="sidebar-wrapper>
-          <ul class="sidebar-nav>
-            <li class="sidebar-brand">
-              <a href=" ">
-                Start
-              </a>
-            </li>     
-
-              <div class="dats">
-                <?php
-                if($_SESSION['type']=='ProjectLeader')
-                {
-
-                ?>
-                <input type="submit" class="list-group-item" value="Account">            
-                <input type="submit" class="list-group-item" value="Artist List">
-                 <?php }
-                 else {
-                 ?>
-                <a href="#" class="list-group-item">Account </a> 
-                <a href="#" class="list-group-item">Notifications </a>
-                <a href="#" class="list-group-item">Project Progress </a>
-                <?php
-               }
-               ?>
-                <a href="logout.php" class="list-group-item">Logout </a>
-              </div>
-           
-         -->
 
 
