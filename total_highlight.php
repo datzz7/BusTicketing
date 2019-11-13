@@ -107,6 +107,12 @@ if(isset($_POST['submit'])){
     $result = $conn-> query($sql);
 
 if ($result->num_rows > 0) {
+  echo $row['users']."</br>";
+  echo $row['subscription']."</br>";
+  echo $row['total']."</br>";
+  echo $row['7Day']."</br>";
+  echo $row['15Day']."</br>";
+  echo $row['30Day']."</br>";
        echo "<table>
        <tr>
        <th>Total Amount for</br> $date</th>
