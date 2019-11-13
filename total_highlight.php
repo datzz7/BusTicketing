@@ -96,7 +96,6 @@ require 'conn.php';
 if(isset($_POST['submit'])){
   $date=$_POST['date'];
   echo $date;
-
     $sql = "SELECT COUNT(U.id) AS users,(SELECT COUNT(*) FROM subscription where date_subscribed = '$date') AS subscription, 
     (SELECT SUM(amount) from payment p inner join subscription s on p.subno = s.subno AND date_subscribed = '$date') as total, 
     (SELECT COUNT(*) FROM subscription where type = '7Days' and date_subscribed = '$date') as 7Day,
@@ -106,7 +105,7 @@ if(isset($_POST['submit'])){
     (SELECT SUM(passengers) from total_passengers) as total_passengers
     FROM users U inner join subscription S on U.id=S.id and s.date_subscribed = '$date'";
     $result = $conn-> query($sql);
-    
+
 if ($result->num_rows > 0) {
        echo "<table>
        <tr>
