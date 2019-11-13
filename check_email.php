@@ -27,7 +27,7 @@ if(!$result['email']==$email){
 		$emailTo = $email;
 		
 		$path = "img/$email-$code.png";
-		$actualpath = "http://bus-ticketing.herokuapp.com/thesis/$path";
+		$actualpath = "http://bus-ticketing.herokuapp.com/$path";
 		$resimage = file_put_contents($path,base64_decode($image));
 
 		$delete = "DELETE FROM temp_email_verification where email ='$emailTo'";
