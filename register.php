@@ -18,13 +18,15 @@ if($result1['id']==$uniqueIDgenerator){
 }
 
 
-
+$image = $_POST['image'];
 $uniqueID = $uniqueIDgenerator;
 $email = $_POST['email'];
 $firstname = $_POST["firstname"];
 $lastname = $_POST["lastname"];
 $password =$_POST["password"];
 $subscription = $_POST["subscription"];
+$amount = $_POST["amount"];
+$ptype = $_POST["ptype"];
 $password = md5($password);
 $qr_code = md5(uniqid());
 
@@ -50,14 +52,15 @@ $currentdate = date("Y/m/d");
 
 
 
-		$sql1 =	"INSERT INTO users (id, email, firstname, lastname, password) VALUES ('$uniqueID','$email','$firstname','$lastname', '$password')";	
+		$sql1 =	"INSERT INTO users (id, email, firstname, lastname, password, photo) VALUES ('$uniqueID','$email',
+		'$firstname','$lastname', '$password', '$image')";	
 		$conn->query($sql1);
 
 		$sql2 = "INSERT INTO subscription(id, type ,date_subscribed, validity, qr_code) VALUES ('$uniqueID',
-		'7Days','$currentdate' , '$validitydate', '$qr_code')";
+		'$ptype','$currentdate' , '$validitydate', '$qr_code')";
 		$conn->query($sql2);
 
-		$sql3 = "INSERT INTO payment(id,subno, amount) VALUES('$uniqueID', (SELECT subno from subscription where id='$uniqueID'), 300)";
+		$sql3 = "INSERT INTO payment(id,subno, amount) VALUES('$uniqueID', (SELECT subno from subscription where id='$uniqueID'), '$amount')";
 		$conn->query($sql3);
 		
 		$conn->close();
@@ -69,15 +72,15 @@ $currentdate = date("Y/m/d");
 
 
 
-		$sql1 =	"INSERT INTO users (id, email, firstname, lastname, password) VALUES ('$uniqueID','$email','$firstname','$lastname', '$password')";	
+		$sql1 =	"INSERT INTO users (id, email, firstname, lastname, password, photo) VALUES ('$uniqueID','$email','$firstname','$lastname', '$password', '$image')";	
 		$conn->query($sql1);
 
 
 		$sql2 = "INSERT INTO subscription(id, type ,date_subscribed, validity, qr_code) VALUES ('$uniqueID',
-		'15Days','$currentdate' , '$validitydate', '$qr_code')";
+		'$ptype','$currentdate' , '$validitydate', '$qr_code')";
 		$conn->query($sql2);
 
-		$sql3 = "INSERT INTO payment(id,subno, amount) VALUES('$uniqueID', (SELECT subno from subscription where id='$uniqueID'), 600)";
+		$sql3 = "INSERT INTO payment(id,subno, amount) VALUES('$uniqueID', (SELECT subno from subscription where id='$uniqueID'), '$amount')";
 		$conn->query($sql3);
 		
 		$conn->close();
@@ -90,15 +93,15 @@ $currentdate = date("Y/m/d");
 
 
 
-		$sql1 =	"INSERT INTO users (id, email, firstname, lastname, password) VALUES ('$uniqueID','$email','$firstname','$lastname', '$password')";	
+		$sql1 =	"INSERT INTO users (id, email, firstname, lastname, password, photo) VALUES ('$uniqueID','$email','$firstname','$lastname', '$password', '$image')";	
 		$conn->query($sql1);
 
 
 		$sql2 = "INSERT INTO subscription(id, type ,date_subscribed, validity, qr_code) VALUES ('$uniqueID',
-		'30Days','$currentdate' , '$validitydate', '$qr_code')";
+		'$ptype','$currentdate' , '$validitydate', '$qr_code')";
 		$conn->query($sql2);
 
-		$sql3 = "INSERT INTO payment(id,subno, amount) VALUES('$uniqueID', (SELECT subno from subscription where id='$uniqueID'), 1100)";
+		$sql3 = "INSERT INTO payment(id,subno, amount) VALUES('$uniqueID', (SELECT subno from subscription where id='$uniqueID'), '$amount')";
 		$conn->query($sql3);
 		
 		$conn->close();
