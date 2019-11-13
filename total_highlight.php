@@ -84,7 +84,7 @@ if(!isset($_SESSION['username']))
 
 <form method="POST">
   
-  <input type="date" name="date">
+  <input type="date" name="date" required="true">
   <input type="submit" name="submit" value="Filter">
   <input type="submit" name="clear" value="Clear" href="total_highlight.php">
 
@@ -120,13 +120,6 @@ if ($result->num_rows > 0) {
        </tr>";
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        echo $row['users']."</br>";
-  echo $row['subscription']."</br>";
-  echo $row['total']."</br>";
-  echo $row['7Day']."</br>";
-  echo $row['15Day']."</br>";
-  echo $row['30Day']."</br>";
-      
         echo "<tr><td>" . "Php ".$row["total"] ."</td><td>" . $row["subscription"].  "</td><td>" .$row['total_passengers'] . "</td><td>" . $row['passengers'] . "</td><td>" . $row["7Day"]   ."</td><td>" . $row["15Day"] ."</td><td>" . $row["30Day"] . "</td><td>". $row['users'] . "</td></tr";
     }
     echo "</table>";
