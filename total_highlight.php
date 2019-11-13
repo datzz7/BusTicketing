@@ -14,7 +14,7 @@ if(!isset($_SESSION['username']))
     <meta name="description" content="">
     <meta name="author" content="">
   
-    <title>Summary</title>
+    <title>Sales Reports</title>
 
     <link href="bootstrap/css/w3.css" rel="stylesheet">
       <style type="text/css">
@@ -28,6 +28,28 @@ if(!isset($_SESSION['username']))
         div.container{
            float: right;
            padding-right: 50px;
+        }
+        table {
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+         td,  th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+         tr:nth-child(even){background-color: #f2f2f2;}
+
+         tr:hover {background-color: #ddd;}
+
+         th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #4CAF50;
+            color: white;
         }
 
       </style>
@@ -44,7 +66,9 @@ if(!isset($_SESSION['username']))
           <a href="arts.php"  class="w3-bar-item w3-button">Artists List</a> -->
           <a href="users_list_highlight.php"  class="w3-bar-item w3-button">All Users List</a>
           <a href="valid_users_highlight.php"  class="w3-bar-item w3-button">Users with valid tickets</a>
-          <a href="total_highlight.php" type="submit" class="w3-bar-item w3-button">Total</a>
+          <a href="total_highlight.php" type="submit" class="w3-bar-item w3-button">Sales Reports</a>
+          <a href="add_prices_highlight.php" class="w3-bar-item w3-button">Add prices</a>
+          <a href="edit_prices_highlight.php" class="w3-bar-item w3-button">Edit Default Prices</a>
           <a href="logging_out.php" class="w3-bar-item w3-button">Log Out</a>
         </div>
     </form>
@@ -54,15 +78,76 @@ if(!isset($_SESSION['username']))
 
 
 <div class="w3-container w3-teal">
-  <h1>Total Summary</h1>
+  <h1>Sales Reports</h1>
 </div>
 
 
-<?php
-include 'total.php';
+<form method="POST">
+  
+  <input type="date" name="date">
+  <input type="submit" name="submit" value="Filter">
+  <input type="submit" name="clear" value="Clear" href="total_highlight.php">
+
+</form>
+
+<?php 
+require 'conn.php';
+
+if(isset($_POST['submit'])){
+  $date=$_POST['date'];
+
+    $sql = "SELECT COUNT(U.id) AS users,(SELECT COUNT(*) FROM subscription where date_subscribed = '$date') AS subscription, 
+    (SELECT SUM(amount) from payment p inner join subscription s on p.subno = s.subno AND date_subscribed = '$date') as total, 
+    (SELECT COUNT(*) FROM subscription where type = '7Days' and date_subscribed = '$date') as 7Day,
+    (SELECT COUNT(*) FROM subscription where type = '15Days' and date_subscribed = '$date') as 15Day,
+    (SELECT COUNT(*) FROM subscription where type = '30Days' and date_subscribed = '$date') as 30Day,
+    (SELECT passengers from total_passengers WHERE date_transac='$date') as passengers,
+    (SELECT SUM(passengers) from total_passengers) as total_passengers
+    FROM users U inner join subscription S on U.id=S.id and s.date_subscribed = '$date'";
+    $result = $conn-> query($sql);
+
+if ($result->num_rows > 0) {
+       echo "<table>
+       <tr>
+       <th>Total Amount for</br> $date</th>
+       <th>Total Subscriptions  for</br> $date</th>
+       <th>Total Passengers</br> (Overall)</th>
+       <th>Total Passengers for</br> $date</br></th>
+       <th>7Days Subscribers  for</br> $date</th>
+       <th>15Days Subscribers  for</br> $date</th>
+       <th>30Days Subscribers  for</br> $date</th>
+       <th>Total Users  Registered for</br> $date</th>
+       </tr>";
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        echo "<tr><td>" . "Php ".$row["total"] ."</td><td>" . $row["subscription"].  "</td><td>" .$row['total_passengers'] . "</td><td>" . $row['passengers'] . "</td><td>" . $row["7Day"]   ."</td><td>" . $row["15Day"] ."</td><td>" . $row["30Day"] . "</td><td>". $row['users'] . "</td></tr";
+    }
+    echo "</table>";
+ } else {
+     echo "<table>
+       <tr>
+         <th>Total Amount</th>
+         <th>Total Subscriptions</th>
+         <th>Total Passengers for this day</th>
+         <th>7Days Subscribers</th>
+         <th>15Days Subscribers</th>
+         <th>30Days Subscribers</th>
+         <th>Total Users</th>
+       </tr>";
+     
+        echo "<tr><td>" ."0" ."</td><td>" ."0".  "</td><td>" . "0" . "</td><td>" . "0" . "</td><td>" . "0".      "</td><td>" . "0"  .  "</td><td>" . "0" . "</td><td>" .  
+        "0". "</td><td>" . "0".  "</td></tr>";
+    echo "</table>";
+ }
+
+$conn->close();
+}else{
+  include 'total.php';
+}
+
+
+
 ?>
-
-
 
 
 </body>
