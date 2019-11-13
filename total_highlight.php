@@ -94,58 +94,68 @@ if(!isset($_SESSION['username']))
 require 'conn.php';
 
 if(isset($_POST['submit'])){
-  $date=$_POST['date'];
-  echo $date;
-    $sql = "SELECT COUNT(U.id) AS users,(SELECT COUNT(*) FROM subscription where date_subscribed = '$date') AS subscription, 
-    (SELECT SUM(amount) from payment p inner join subscription s on p.subno = s.subno AND date_subscribed = '$date') as total, 
-    (SELECT COUNT(*) FROM subscription where type = '7Days' and date_subscribed = '$date') as 7Day,
-    (SELECT COUNT(*) FROM subscription where type = '15Days' and date_subscribed = '$date') as 15Day,
-    (SELECT COUNT(*) FROM subscription where type = '30Days' and date_subscribed = '$date') as 30Day,
-    (SELECT passengers from total_passengers WHERE date_transac='$date') as passengers,
-    (SELECT SUM(passengers) from total_passengers) as total_passengers
-    FROM users U inner join subscription S on U.id=S.id and s.date_subscribed = '$date'";
-    $result = $conn-> query($sql);
+$date=$_POST['date'];
 
-if ($result->num_rows > 0) {
-       echo "<table>
-       <tr>
-       <th>Total Amount for</br> $date</th>
-       <th>Total Subscriptions  for</br> $date</th>
-       <th>Total Passengers</br> (Overall)</th>
-       <th>Total Passengers for</br> $date</br></th>
-       <th>7Days Subscribers  for</br> $date</th>
-       <th>15Days Subscribers  for</br> $date</th>
-       <th>30Days Subscribers  for</br> $date</th>
-       <th>Total Users  Registered for</br> $date</th>
-       </tr>";
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
-      echo "wew".$row['7Day'];
-        echo "<tr><td>" . "Php ".$row["total"] ."</td><td>" . $row["subscription"].  "</td><td>" .$row['total_passengers'] . "</td><td>" . $row['passengers'] . "</td><td>" . $row["7Day"]   ."</td><td>" . $row["15Day"] ."</td><td>" . $row["30Day"] . "</td><td>". $row['users'] . "</td></tr";
-    }
-    echo "</table>";
- } else {
-     echo "<table>
-       <tr>
-       <th>Total Amount for</br> $date</th>
-       <th>Total Subscriptions  for</br> $date</th>
-       <th>Total Passengers</br> (Overall)</th>
-       <th>Total Passengers for</br> $date</br></th>
-       <th>7Days Subscribers  for</br> $date</th>
-       <th>15Days Subscribers  for</br> $date</th>
-       <th>30Days Subscribers  for</br> $date</th>
-       <th>Total Users  Registered for</br> $date</th>
-       </tr>";
-     
-        echo "<tr><td>" ."0" ."</td><td>" ."0".  "</td><td>" . "0" . "</td><td>" . "0" . "</td><td>" . "0".      "</td><td>" . "0"  .  "</td><td>" . "0" . "</td><td>" .  
-        "0".   "</td></tr>";
-    echo "</table>";
- }
+  $sql ="SELECT * FROM subscription where date_subscribed = '$date'";
+  $result = mysqli_query($conn, $sql);
 
-$conn->close();
-}else{
-  include 'total.php';
+  if(mysqli_num_rows($result)>0){
+    while($row = mysqli_fetch_assoc($result)){
+    echo $row['type']." ". $row['date_subscribed']. "</br>";
+  
 }
+}
+}
+//     $sql = "SELECT COUNT(U.id) AS users,(SELECT COUNT(*) FROM subscription where date_subscribed = '$date') AS subscription, 
+//     (SELECT SUM(amount) from payment p inner join subscription s on p.subno = s.subno AND date_subscribed = '$date') as total, 
+//     (SELECT COUNT(*) FROM subscription where type = '7Days' and date_subscribed = '$date') as 7Day,
+//     (SELECT COUNT(*) FROM subscription where type = '15Days' and date_subscribed = '$date') as 15Day,
+//     (SELECT COUNT(*) FROM subscription where type = '30Days' and date_subscribed = '$date') as 30Day,
+//     (SELECT passengers from total_passengers WHERE date_transac='$date') as passengers,
+//     (SELECT SUM(passengers) from total_passengers) as total_passengers
+//     FROM users U inner join subscription S on U.id=S.id and s.date_subscribed = '$date'";
+//     $result = $conn-> query($sql);
+
+// if ($result->num_rows > 0) {
+//        echo "<table>
+//        <tr>
+//        <th>Total Amount for</br> $date</th>
+//        <th>Total Subscriptions  for</br> $date</th>
+//        <th>Total Passengers</br> (Overall)</th>
+//        <th>Total Passengers for</br> $date</br></th>
+//        <th>7Days Subscribers  for</br> $date</th>
+//        <th>15Days Subscribers  for</br> $date</th>
+//        <th>30Days Subscribers  for</br> $date</th>
+//        <th>Total Users  Registered for</br> $date</th>
+//        </tr>";
+//     // output data of each row
+//     while($row = $result->fetch_assoc()) {
+//       echo "wew".$row['7Day'];
+//         echo "<tr><td>" . "Php ".$row["total"] ."</td><td>" . $row["subscription"].  "</td><td>" .$row['total_passengers'] . "</td><td>" . $row['passengers'] . "</td><td>" . $row["7Day"]   ."</td><td>" . $row["15Day"] ."</td><td>" . $row["30Day"] . "</td><td>". $row['users'] . "</td></tr";
+//     }
+//     echo "</table>";
+//  } else {
+//      echo "<table>
+//        <tr>
+//        <th>Total Amount for</br> $date</th>
+//        <th>Total Subscriptions  for</br> $date</th>
+//        <th>Total Passengers</br> (Overall)</th>
+//        <th>Total Passengers for</br> $date</br></th>
+//        <th>7Days Subscribers  for</br> $date</th>
+//        <th>15Days Subscribers  for</br> $date</th>
+//        <th>30Days Subscribers  for</br> $date</th>
+//        <th>Total Users  Registered for</br> $date</th>
+//        </tr>";
+     
+//         echo "<tr><td>" ."0" ."</td><td>" ."0".  "</td><td>" . "0" . "</td><td>" . "0" . "</td><td>" . "0".      "</td><td>" . "0"  .  "</td><td>" . "0" . "</td><td>" .  
+//         "0".   "</td></tr>";
+//     echo "</table>";
+//  }
+
+// $conn->close();
+// }else{
+//   include 'total.php';
+// }
 
 
 
