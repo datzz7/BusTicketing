@@ -82,7 +82,7 @@ if(!isset($_SESSION['username']))
 </div>
 
 
-<form method="POST">
+<form method="POST" action="total_highlight.php">
   
   <input type="date" name="date">
   <input type="submit" name="submit" value="Filter">
