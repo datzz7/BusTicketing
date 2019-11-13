@@ -126,17 +126,18 @@ if ($result->num_rows > 0) {
  } else {
      echo "<table>
        <tr>
-         <th>Total Amount</th>
-         <th>Total Subscriptions</th>
-         <th>Total Passengers for this day</th>
-         <th>7Days Subscribers</th>
-         <th>15Days Subscribers</th>
-         <th>30Days Subscribers</th>
-         <th>Total Users</th>
+       <th>Total Amount for</br> $date</th>
+       <th>Total Subscriptions  for</br> $date</th>
+       <th>Total Passengers</br> (Overall)</th>
+       <th>Total Passengers for</br> $date</br></th>
+       <th>7Days Subscribers  for</br> $date</th>
+       <th>15Days Subscribers  for</br> $date</th>
+       <th>30Days Subscribers  for</br> $date</th>
+       <th>Total Users  Registered for</br> $date</th>
        </tr>";
      
         echo "<tr><td>" ."0" ."</td><td>" ."0".  "</td><td>" . "0" . "</td><td>" . "0" . "</td><td>" . "0".      "</td><td>" . "0"  .  "</td><td>" . "0" . "</td><td>" .  
-        "0". "</td><td>" . "0".  "</td></tr>";
+        "0".   "</td></tr>";
     echo "</table>";
  }
 
