@@ -78,7 +78,7 @@ if(!$result['email']==$email){
 		}
 
 		else{		
-
+			$res['picture'] ="0";
 			$res['message'] ="1";
 			echo json_encode($res);	
 			mysqli_close($conn);
