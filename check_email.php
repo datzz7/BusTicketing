@@ -7,7 +7,13 @@ use PHPMailer\PHPMailer\Exception;
 
 require 'vendor/autoload.php';
 
+$code = uniqid(true);
 $email = $_POST['email'];
+$image = $_POST['image'];
+
+
+
+
 
 $check = "SELECT * FROM users where email='$email'";
 
@@ -19,7 +25,10 @@ $check = "SELECT * FROM users where email='$email'";
 if(!$result['email']==$email){
 
 		$emailTo = $email;
-		$code = uniqid(true);
+		
+		$path = "img/$email-$code.png";
+		$actualpath = "http://192.168.254.194/thesis/$path";
+		$resimage = file_put_contents($path,base64_decode($image));
 
 		$delete = "DELETE FROM temp_email_verification where email ='$emailTo'";
 		$conn->query($delete);
@@ -28,7 +37,7 @@ if(!$result['email']==$email){
 		$mail = new PHPMailer(true);
 
 			try {
-				$sql = "INSERT INTO temp_email_verification VALUES('$emailTo', '$code')";
+				$sql = "INSERT INTO temp_email_verification VALUES('$emailTo', '$code','$actualpath')";
 				$conn->query($sql);
 			    //Server settings
 			    //$mail->SMTPDebug = 1;                     
@@ -57,7 +66,7 @@ if(!$result['email']==$email){
 
 			    $mail->send();
 
-
+			    $res['picture'] = $actualpath;
 				$res['message'] ="0";
 				echo json_encode($res);
 				mysqli_close($conn);
