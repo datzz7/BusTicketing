@@ -73,12 +73,13 @@ if ($result->num_rows > 0) {
          <th>Total Users</th>
        </tr>";
      
-        echo "<tr><td>" ."0" ."</td><td>" ."0".  "</td><td>" . "0" . "</td><td>" . "0"  .  "</td><td>" . "0" . "</td><td>" .  
-        "0". "</td><td>" . "0".  "</td></tr>";
+        echo "<tr><td>" ."0" ."</td><td>" ."0".  "</td><td>" . "0" . "</td><td>" . "0" . "</td><td>" . "0".      "</td><td>" . "0"  .  "</td><td>" . "0" . "</td><td>" .  
+        "0". "</td><td>" .   "</td></tr>";
     echo "</table>";
  }
 
 $conn->close();
 ?> 
+
 </body>
 </html>
