@@ -9,9 +9,6 @@ require 'vendor/autoload.php';
 
 $code = uniqid(true);
 $email = $_POST['email'];
-$image = $_POST['image'];
-
-
 
 
 
@@ -25,7 +22,7 @@ $check = "SELECT * FROM users where email='$email'";
 if(!$result['email']==$email){
 
 		$emailTo = $email;
-		
+		$image = $_POST['image'];
 		$path = "img/$email-$code.png";
 		$actualpath = "http://192.168.254.194/thesis/$path";
 		$resimage = file_put_contents($path,base64_decode($image));
