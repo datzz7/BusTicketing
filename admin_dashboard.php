@@ -31,10 +31,11 @@ if(!isset($_SESSION['username']))
   <h3 class="w3-bar-item">Menu</h3>
   <!-- <a href="#" class="w3-bar-item w3-button">Account</a>
   <a href="arts.php"  class="w3-bar-item w3-button">Artists List</a> -->
-  <a href="users_list_highlight.php" class="w3-bar-item w3-button">All Users list</a>
+  <a href="users_list_highlight.php" class="w3-bar-item w3-button">All Users List</a>
   <a href="valid_users_highlight.php" class="w3-bar-item w3-button">Users with valid tickets</a>
   <a href="total_highlight.php" class="w3-bar-item w3-button">Sales Reports</a>
-     <a href="add_prices_highlight.php" class="w3-bar-item w3-button">Add prices</a>
+  <a href="add_prices_highlight.php" class="w3-bar-item w3-button">Add prices</a>
+  <a href="edit_prices_highlight.php" class="w3-bar-item w3-button">Edit Default Prices</a>
   <a href="logging_out.php" class="w3-bar-item w3-button">Log Out</a>
 </div>
 </form>
