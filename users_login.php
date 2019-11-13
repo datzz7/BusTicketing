@@ -28,11 +28,12 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 			$index['lastname'] = $row['lastname'];
 			$index['email'] = $row['email'];
 			$index['id'] = $row['id'];
+			$index['photo'] = $row['photo'];
 
 
 			array_push($result['login'], $index);
 
-			sleep(1);	
+				
 			$result['success'] ="1";
 			$result['message'] ="success";
 			echo json_encode($result);
@@ -41,7 +42,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 		}
 		else{
 
-			sleep(1);	
+				
 			$result['success'] ="0";
 			$result['message'] = "error";
 			echo json_encode($result);	
