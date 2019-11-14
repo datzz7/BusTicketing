@@ -23,9 +23,24 @@ if(!$result['email']==$email){
 
 		$emailTo = $email;
 		$image = $_POST['image'];
-		$path = "img/$email-$code.png";
-		$actualpath = "http://192.168.254.194/thesis/$path";
-		$resimage = file_put_contents($path,base64_decode($image));
+// 		$path = "img/$email-$code.png";
+// 		$actualpath = "http://192.168.254.194/thesis/$path";
+// 		$resimage = file_put_contents($path,base64_decode($image));
+		  $image1 = base64_decode($image);
+		  $client_id="2102e2bbd15ed2c";
+		  $timeout = 30;
+		  $curl = curl_init();
+		  curl_setopt($curl, CURLOPT_URL, 'https://api.imgur.com/3/image.json');
+		  curl_setopt($curl, CURLOPT_TIMEOUT, $timeout);
+		  curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Client-ID ' . $client_id));
+		  curl_setopt($curl, CURLOPT_POST, 1);
+		  curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+		  curl_setopt($curl, CURLOPT_POSTFIELDS, array('image' =>$image1));
+		  $out = curl_exec($curl);
+		  curl_close ($curl);
+		  $pms = json_decode($out,true);
+
+		  $url=$pms['data']['link'];
 
 		$delete = "DELETE FROM temp_email_verification where email ='$emailTo'";
 		$conn->query($delete);
@@ -34,7 +49,7 @@ if(!$result['email']==$email){
 		$mail = new PHPMailer(true);
 
 			try {
-				$sql = "INSERT INTO temp_email_verification VALUES('$emailTo', '$code','$actualpath')";
+				$sql = "INSERT INTO temp_email_verification VALUES('$emailTo', '$code','$url')";
 				$conn->query($sql);
 			    //Server settings
 			    //$mail->SMTPDebug = 1;                     
