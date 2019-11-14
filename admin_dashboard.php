@@ -36,6 +36,7 @@ if(!isset($_SESSION['username']))
   <a href="total_highlight.php" class="w3-bar-item w3-button">Sales Reports</a>
   <a href="add_prices_highlight.php" class="w3-bar-item w3-button">Add prices</a>
   <a href="edit_prices_highlight.php" class="w3-bar-item w3-button">Edit Default Prices</a>
+  <a href="bus_route_highlight.php" class="w3-bar-item w3-button">Manage Route</a>
   <a href="logging_out.php" class="w3-bar-item w3-button">Log Out</a>
 </div>
 </form>
