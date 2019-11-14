@@ -85,6 +85,7 @@ if(!isset($_SESSION['username']))
 <form method="POST">
   
   <input type="date" name="date" required="true">
+  <input type="date" name="date_to" required="true">
   <input type="submit" name="submit" value="Filter">
   <input type="submit" name="clear" value="Clear" href="total_highlight.php">
 
@@ -95,28 +96,30 @@ require 'conn.php';
 
 if(isset($_POST['submit'])){
   $date=$_POST['date'];
-  echo $date;
-    $sql = "SELECT COUNT(U.id) AS users,(SELECT COUNT(*) FROM subscription where date_subscribed = '$date') AS subscription, 
-    (SELECT SUM(amount) from payment p inner join subscription s on p.subno = s.subno AND date_subscribed = '$date') as total, 
-    (SELECT COUNT(*) FROM subscription where type = '7Days' and date_subscribed = '$date') as 7Day,
-    (SELECT COUNT(*) FROM subscription where type = '15Days' and date_subscribed = '$date') as 15Day,
-    (SELECT COUNT(*) FROM subscription where type = '30Days' and date_subscribed = '$date') as 30Day,
-    (SELECT passengers from total_passengers WHERE date_transac='$date') as passengers,
-    (SELECT SUM(passengers) from total_passengers) as total_passengers
-    FROM users U inner join subscription S on U.id=S.id and S.date_subscribed = '$date'";
+  $date_to=$_POST['date_to'];
+  echo $date." to ".$date_to;
+    $sql = "SELECT COUNT(*) AS users,
+(SELECT COUNT(*) FROM subscription S where (S.date_subscribed BETWEEN '$date' and '$date_to')) AS subscription,
+(SELECT SUM(amount) from payment p inner join subscription s on p.subno = s.subno WHERE (s.date_subscribed BETWEEN '$date' and '$date_to')) as total,
+(SELECT COUNT(*) FROM subscription  where type = '7Days'AND (date_subscribed BETWEEN '$date' and '$date_to')) as 7Day,
+(SELECT COUNT(*) FROM subscription  where type = '15Days'AND (date_subscribed BETWEEN '$date' and '$date_to')) as 15Day,
+(SELECT COUNT(*) FROM subscription  where type = '30Days'AND (date_subscribed BETWEEN '$date' and '$date_to')) as 30Day,
+(SELECT SUM(passengers) from total_passengers WHERE (date_transac BETWEEN '$date' and '$date_to')) as passengers,
+(SELECT SUM(passengers) from total_passengers) as total_passengers
+FROM users U WHERE (SELECT COUNT(*) FROM subscription S WHERE U.id = S.id AND (S.date_subscribed BETWEEN '$date' and '$date_to'))";
     $result = $conn-> query($sql);
 
 if ($result->num_rows > 0) {
        echo "<table>
        <tr>
-       <th>Total Amount for</br> $date</th>
-       <th>Total Subscriptions  for</br> $date</th>
+       <th>Total Amount for</br> $date to $date_to </th>
+       <th>Total Subscriptions for</br> $date to $date_to </th>
        <th>Total Passengers</br> (Overall)</th>
-       <th>Total Passengers for</br> $date</br></th>
-       <th>7Days Subscribers  for</br> $date</th>
-       <th>15Days Subscribers  for</br> $date</th>
-       <th>30Days Subscribers  for</br> $date</th>
-       <th>Total Users  Registered for</br> $date</th>
+       <th>Total Passengers for</br> $date to $date_to </br></th>
+       <th>7Days Subscribers  for</br> $date to $date_to </th>
+       <th>15Days Subscribers  for</br> $date to $date_to </th>
+       <th>30Days Subscribers for</br> $date to $date_to </th>
+       <th>Total Users  Registered for</br> $date to $date_to </th>
        </tr>";
     // output data of each row
     while($row = $result->fetch_assoc()) {
