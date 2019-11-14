@@ -92,7 +92,6 @@ if(!isset($_SESSION['username']))
     $route = $_POST['route'];
     $plate = $_POST['plate'];
     
-    echo $plate;
     $sql = "UPDATE bus_route R SET R.route_description ='$route' WHERE R.plate = '$plate'";
     $conn->query($sql);
 
