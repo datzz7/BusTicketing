@@ -25,7 +25,8 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
 			$index['date_subscribed'] = $row['date_subscribed'];
 			$index['validity'] = $row['validity'];
 			$index['qr_code'] = $row['qr_code'];
-
+			$index['photo'] = $row['photo'];
+ 
 
 			array_push($result['subscriptions'], $index);
 			
