@@ -10,7 +10,7 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
 
 	$qr_code = $_GET['qr_code'];
 
-	$sql = "SELECT firstname, lastname, qr_code, date_subscribed,validity FROM subscription inner join users on qr_code = '$qr_code' and subscription.id=users.id";
+	$sql = "SELECT firstname, lastname, qr_code, date_subscribed,validity,photo FROM subscription inner join users on qr_code = '$qr_code' and subscription.id=users.id";
 
 	$response = mysqli_query($conn, $sql);
 
@@ -26,6 +26,7 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
 		$index['lastname'] = $row['lastname'];
 		$index['date_subscribed'] = $row['date_subscribed'];
 		$index['validity'] = $row['validity'];
+		$index['photo'] = $row['photo'];
 	
 
 
