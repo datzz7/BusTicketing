@@ -78,7 +78,7 @@ if(!$result['email']==$email){
 
 			    $mail->send();
 
-			    $res['picture'] = $actualpath;
+			    $res['picture'] = $url;
 				$res['message'] ="0";
 				echo json_encode($res);
 				mysqli_close($conn);
