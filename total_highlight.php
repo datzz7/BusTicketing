@@ -87,7 +87,6 @@ if(!isset($_SESSION['username']))
   <input type="date" name="date" required="true">
   <input type="date" name="date_to" required="true">
   <input type="submit" name="submit" value="Filter">
-  <input type="submit" name="clear" value="Clear" href="total_highlight.php">
 
 </form>
 
