@@ -91,7 +91,7 @@ if(!isset($_SESSION['username']))
   <input type="submit" name="submit" value="Filter">
   
 </form>
-
+<button id="print">Download pdf</button>
 <?php 
 require 'conn.php';
 
@@ -153,6 +153,26 @@ $conn->close();
 ?>
 
 
+<script type="text/javascript">
+
+	var btn = document.getElementById('print');
+	btn.addEventListener("click", printFunction);
+	
+	// Print
+	function printFunction () {
+		var element = document.getElementById('element');
+		
+		var opt = {
+			  margin:       1,
+			  filename:     'ticket.pdf',
+			  image:        { type: 'jpeg', quality: 0.98 },
+			  html2canvas:  { scale: 2 },
+			  jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+			};
+		html2pdf(element, opt);
+	}
+	
+</script>
   
   
 </body>
