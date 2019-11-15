@@ -13,6 +13,7 @@ if(!isset($_SESSION['username']))
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.1/html2pdf.bundle.min.js"></script>
   
     <title>Sales Reports</title>
 
@@ -88,7 +89,7 @@ if(!isset($_SESSION['username']))
   <input type="date" name="date" required="true">
   <input type="date" name="date_to" required="true">
   <input type="submit" name="submit" value="Filter">
-
+  
 </form>
 
 <?php 
@@ -110,7 +111,7 @@ FROM users U WHERE (SELECT COUNT(*) FROM subscription S WHERE U.id = S.id AND (S
     $result = $conn-> query($sql);
 
 if ($result->num_rows > 0) {
-       echo "<table>
+       echo "<table id="element">
        <tr>
        <th>Total Amount for</br> $date to $date_to </th>
        <th>Total Subscriptions for</br> $date to $date_to </th>
@@ -149,11 +150,31 @@ $conn->close();
   include 'total.php';
 }
 
-
-
 ?>
 
+ <button id="print">Download pdf</button>
+  
+  <script type="text/javascript">
 
+	var btn = document.getElementById('print');
+	btn.addEventListener("click", printFunction);
+	
+	// Print
+	function printFunction () {
+		var element = document.getElementById('element');
+		
+		var opt = {
+			  margin:       1,
+			  filename:     'ticket.pdf',
+			  image:        { type: 'jpeg', quality: 0.98 },
+			  html2canvas:  { scale: 2 },
+			  jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+			};
+		html2pdf(element, opt);
+	}
+	
+</script>
+  
 </body>
 </html>
 
