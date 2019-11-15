@@ -111,7 +111,7 @@ FROM users U WHERE (SELECT COUNT(*) FROM subscription S WHERE U.id = S.id AND (S
     $result = $conn-> query($sql);
 
 if ($result->num_rows > 0) {
-       echo "<table>
+       echo "<table id='element'>
        <tr>
        <th>Total Amount for</br> $date to $date_to </th>
        <th>Total Subscriptions for</br> $date to $date_to </th>
