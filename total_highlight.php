@@ -162,15 +162,15 @@ $conn->close();
 	function printFunction () {
 		var element = document.getElementById('element');
 		
-// 		var opt = {
-// 			  margin:       1,
-// 			  filename:     'reports.pdf',
-// 			  image:        { type: 'jpeg', quality: 0.98 },
-// 			  html2canvas:  { scale: 2 },
-// 			  jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
-// 			};
-		html2pdf(element);
-		//, opt
+		var opt = {
+			  margin:       1,
+			  filename:     'reports.pdf',
+			  image:        { type: 'jpeg', quality: 0.98 },
+			  html2canvas:  { scale: 2 },
+			  jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+			};
+		html2pdf(element, opt);
+		
 	}
 	
 </script>
