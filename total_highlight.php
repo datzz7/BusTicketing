@@ -154,26 +154,6 @@ $conn->close();
 
  <button id="print">Download pdf</button>
   
-  <script type="text/javascript">
-
-	var btn = document.getElementById('print');
-	btn.addEventListener("click", printFunction);
-	
-	// Print
-	function printFunction () {
-		var element = document.getElementById('element');
-		
-		var opt = {
-			  margin:       1,
-			  filename:     'ticket.pdf',
-			  image:        { type: 'jpeg', quality: 0.98 },
-			  html2canvas:  { scale: 2 },
-			  jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
-			};
-		html2pdf(element, opt);
-	}
-	
-</script>
   
 </body>
 </html>
