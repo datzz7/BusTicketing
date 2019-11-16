@@ -25,10 +25,7 @@ if(!isset($_SESSION['username']))
         
         #element{
             font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-collapse: collapse;
+            display: none;
             width: 50%;
         }  
         .footer{
