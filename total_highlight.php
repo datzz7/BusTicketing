@@ -23,10 +23,7 @@ if(!isset($_SESSION['username']))
 
 
         
-        #element{
-            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-            display: none;
-            width: 50%;
+     
         }  
         .footer{
            position: fixed;
@@ -47,6 +44,7 @@ if(!isset($_SESSION['username']))
          td,  th {
             border: 1px solid #ddd;
             padding: 8px;
+            width: 50%;
         }
 
          tr:nth-child(even){background-color: #f2f2f2;}
@@ -129,20 +127,20 @@ FROM users U WHERE (SELECT COUNT(*) FROM subscription S WHERE U.id = S.id AND (S
          $Day30 = '<td>'.$row["30Day"] . "</td>"; 
          $users = '<td>'.$row['users'] . "</td>";
 
-            echo "<table>
-       <tr>
-       <th>Total Amount for</br> $date to $date_to </th>
-       <th>Total Subscriptions for</br> $date to $date_to </th>
-       <th>Total Passengers</br> (Overall)</th>
-       <th>Total Passengers for</br> $date to $date_to </br></th>
-       <th>7Days Subscribers  for</br> $date to $date_to </th>
-       <th>15Days Subscribers  for</br> $date to $date_to </th>
-       <th>30Days Subscribers for</br> $date to $date_to </th>
-       <th>Total Users  Registered for</br> $date to $date_to </th>
-       </tr>";
-    // output data of each row
-        echo "<tr><td>" . "Php ".$row["total"] ."</td><td>" . $row["subscription"].  "</td><td>" .$row['total_passengers'] . "</td><td>" . $row['passengers'] . "</td><td>" . $row["7Day"]   ."</td><td>" . $row["15Day"] ."</td><td>" . $row["30Day"] . "</td><td>". $row['users'] . "</td></tr";
-        echo "</table>";
+    //         echo "<table>
+    //    <tr>
+    //    <th>Total Amount for</br> $date to $date_to </th>
+    //    <th>Total Subscriptions for</br> $date to $date_to </th>
+    //    <th>Total Passengers</br> (Overall)</th>
+    //    <th>Total Passengers for</br> $date to $date_to </br></th>
+    //    <th>7Days Subscribers  for</br> $date to $date_to </th>
+    //    <th>15Days Subscribers  for</br> $date to $date_to </th>
+    //    <th>30Days Subscribers for</br> $date to $date_to </th>
+    //    <th>Total Users  Registered for</br> $date to $date_to </th>
+    //    </tr>";
+    // // output data of each row
+    //     echo "<tr><td>" . "Php ".$row["total"] ."</td><td>" . $row["subscription"].  "</td><td>" .$row['total_passengers'] . "</td><td>" . $row['passengers'] . "</td><td>" . $row["7Day"]   ."</td><td>" . $row["15Day"] ."</td><td>" . $row["30Day"] . "</td><td>". $row['users'] . "</td></tr";
+    //     echo "</table>";
     
 
     }
@@ -210,20 +208,20 @@ $result = $conn-> query($sql);
          $Day30 = '<td>'.$row["30Days"] . "</td>"; 
          $users = '<td>'.$row['users'] . "</td>";
 
-        echo "<table >
-       <tr>
-       <th>Total Amount</th>
-       <th>Total Subscriptions</th>
-       <th>Total Passengers</br> (Overall)</th>
-       <th>Total Passengers for </br>$currentdate</th>
-       <th>7Days Subscribers</th>
-       <th>15Days Subscribers</th>
-       <th>30Days Subscribers</th>
-       <th>Total Users</th>
-       </tr>"; 
+       //  echo "<table >
+       // <tr>
+       // <th>Total Amount</th>
+       // <th>Total Subscriptions</th>
+       // <th>Total Passengers</br> (Overall)</th>
+       // <th>Total Passengers for </br>$currentdate</th>
+       // <th>7Days Subscribers</th>
+       // <th>15Days Subscribers</th>
+       // <th>30Days Subscribers</th>
+       // <th>Total Users</th>
+       // </tr>"; 
 
-        echo "<tr><td>" . "Php ".$row["total"] ."</td><td>" . $row["subscription"].  "</td><td>" .$row['total_passengers'] . "</td><td>" . $row['passengers'] . "</td><td>" . $row["7Days"]   ."</td><td>" . $row["15Days"] ."</td><td>" . $row["30Days"] . "</td><td>". $row['users'] . "</td></tr";
-        echo "</table>";
+       //  echo "<tr><td>" . "Php ".$row["total"] ."</td><td>" . $row["subscription"].  "</td><td>" .$row['total_passengers'] . "</td><td>" . $row['passengers'] . "</td><td>" . $row["7Days"]   ."</td><td>" . $row["15Days"] ."</td><td>" . $row["30Days"] . "</td><td>". $row['users'] . "</td></tr";
+       //  echo "</table>";
     }
  
 if ($result->num_rows > 0) {
