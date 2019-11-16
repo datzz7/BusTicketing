@@ -1,10 +1,10 @@
 <?php
   include "conn.php";
-//   session_start();
-// if(!isset($_SESSION['username']))
-//   {
-//    header('location: admin_login.php');
-//   }
+  session_start();
+if(!isset($_SESSION['username']))
+  {
+   header('location: admin_login.php');
+  }
 ?>
 <!doctype html>
 <html lang="en">
@@ -20,6 +20,17 @@
     <link href="bootstrap/css/w3.css" rel="stylesheet">
       <style type="text/css">
 
+
+
+        
+        #element{
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-collapse: collapse;
+            width: 50%;
+        }  
         .footer{
            position: fixed;
            left: 0px;
@@ -110,8 +121,18 @@ if(isset($_POST['submit'])){
 FROM users U WHERE (SELECT COUNT(*) FROM subscription S WHERE U.id = S.id AND (S.date_subscribed BETWEEN '$date' and '$date_to'))";
     $result = $conn-> query($sql);
 
-if ($result->num_rows > 0) {
-       echo "<table id='element'>
+   while($row = $result->fetch_assoc()) {
+          
+         $total = '<td>'.$row["total"] . "</td>";
+         $subscription = '<td>'.$row["subscription"]. "</td>";  
+         $total_passengers = '<td>'.$row['total_passengers'] . "</td>";  
+         $passengers =  '<td>'.$row['passengers'] . "</td>"; 
+         $Day7 = '<td>'.$row["7Day"] . "</td>"; 
+         $Day15 = '<td>'.$row["15Day"] ."</td>"; 
+         $Day30 = '<td>'.$row["30Day"] . "</td>"; 
+         $users = '<td>'.$row['users'] . "</td>";
+
+            echo "<table>
        <tr>
        <th>Total Amount for</br> $date to $date_to </th>
        <th>Total Subscriptions for</br> $date to $date_to </th>
@@ -123,56 +144,156 @@ if ($result->num_rows > 0) {
        <th>Total Users  Registered for</br> $date to $date_to </th>
        </tr>";
     // output data of each row
-    while($row = $result->fetch_assoc()) {
         echo "<tr><td>" . "Php ".$row["total"] ."</td><td>" . $row["subscription"].  "</td><td>" .$row['total_passengers'] . "</td><td>" . $row['passengers'] . "</td><td>" . $row["7Day"]   ."</td><td>" . $row["15Day"] ."</td><td>" . $row["30Day"] . "</td><td>". $row['users'] . "</td></tr";
-    }
-    echo "</table>";
- } else {
-     echo "<table>
-       <tr>
-       <th>Total Amount for</br> $date</th>
-       <th>Total Subscriptions  for</br> $date</th>
-       <th>Total Passengers</br> (Overall)</th>
-       <th>Total Passengers for</br> $date</br></th>
-       <th>7Days Subscribers  for</br> $date</th>
-       <th>15Days Subscribers  for</br> $date</th>
-       <th>30Days Subscribers  for</br> $date</th>
-       <th>Total Users  Registered for</br> $date</th>
-       </tr>";
-     
-        echo "<tr><td>" ."0" ."</td><td>" ."0".  "</td><td>" . "0" . "</td><td>" . "0" . "</td><td>" . "0".      "</td><td>" . "0"  .  "</td><td>" . "0" . "</td><td>" .  
-        "0".   "</td></tr>";
-    echo "</table>";
- }
+        echo "</table>";
+    
 
-$conn->close();
+    }
+ 
+    
+ 
+if ($result->num_rows > 0) {
+
+       echo "
+       <table id='element'>
+       <tr>
+       <th>
+        Reports for </br> $date to $date_to
+       </th>
+       </tr>
+       <tr>
+       <th>Total Amount </th> $total
+       </tr>
+       <tr>
+       <th>Total Subscriptions</th> $subscription
+       </tr>
+       <tr>
+       <th>Total Passengers</br> (Overall)</th> $total_passengers
+       </tr>
+       <tr>
+       <th>Total Passengers for</br> $date to $date_to </br></th> $passengers
+       </tr>
+       <tr>
+       <th>7Days Subscribers $Day7
+       </tr>
+       <tr>
+       <th>15Days Subscribers $Day15 
+       </tr>
+       <tr>
+       <th>30Days Subscribers $Day30
+       </tr>
+       <tr>
+       <th>Total Users  Registered $users
+       </tr> </table> ";
+
+     }
+    // output data of each row
 }else{
-  include 'total.php';
+  date_default_timezone_set("Asia/Singapore");
+$currentdate = date("Y-m-d");
+
+$d = strtotime("+7 Day");
+$validitydate = date("Y/m/d", $d);
+$sql = "SELECT COUNT(U.id) AS users,(SELECT COUNT(*) FROM subscription) AS subscription, (SELECT SUM(amount) from payment) as total, (SELECT COUNT(*) FROM subscription where type = '7Days') as 7Days, 
+     (SELECT COUNT(*) FROM subscription where type = '15Days') as 15Days,
+    (SELECT COUNT(*) FROM subscription where type = '30Days') as 30Days, (SELECT passengers from total_passengers WHERE date_transac='$currentdate') as passengers,(SELECT SUM(passengers) from total_passengers) as total_passengers from users U";
+$result = $conn-> query($sql);
+
+
+
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+
+       $total = '<td>'.$row["total"] . "</td>";
+         $subscription = '<td>'.$row["subscription"]. "</td>";  
+         $total_passengers = '<td>'.$row['total_passengers'] . "</td>";  
+         $passengers =  '<td>'.$row['passengers'] . "</td>"; 
+         $Day7 = '<td>'.$row["7Days"] . "</td>"; 
+         $Day15 = '<td>'.$row["15Days"] ."</td>"; 
+         $Day30 = '<td>'.$row["30Days"] . "</td>"; 
+         $users = '<td>'.$row['users'] . "</td>";
+
+        echo "<table >
+       <tr>
+       <th>Total Amount</th>
+       <th>Total Subscriptions</th>
+       <th>Total Passengers</br> (Overall)</th>
+       <th>Total Passengers for </br>$currentdate</th>
+       <th>7Days Subscribers</th>
+       <th>15Days Subscribers</th>
+       <th>30Days Subscribers</th>
+       <th>Total Users</th>
+       </tr>"; 
+
+        echo "<tr><td>" . "Php ".$row["total"] ."</td><td>" . $row["subscription"].  "</td><td>" .$row['total_passengers'] . "</td><td>" . $row['passengers'] . "</td><td>" . $row["7Days"]   ."</td><td>" . $row["15Days"] ."</td><td>" . $row["30Days"] . "</td><td>". $row['users'] . "</td></tr";
+        echo "</table>";
+    }
+ 
+if ($result->num_rows > 0) {
+
+       echo "
+       <table id='element'>
+       <tr>
+       <th>
+        Overall Reports
+       </th>
+       </tr>
+       <tr>
+       <th>Total Amount </th> $total
+       </tr>
+       <tr>
+       <th>Total Subscriptions</th> $subscription
+       </tr>
+       <tr>
+       <th>Total Passengers</br> (Overall)</th> $total_passengers
+       </tr>
+       <tr>
+       <th>7Days Subscribers $Day7
+       </tr>
+       <tr>
+       <th>15Days Subscribers $Day15 
+       </tr>
+       <tr>
+       <th>30Days Subscribers $Day30
+       </tr>
+       <tr>
+       <th>Total Users  Registered $users
+       </tr> </table> ";
+
+     }
+         
+ 
+
 }
+$conn->close();
+
+// else{
+//   include 'total.php';
+// }
 
 ?>
 
 
 <script type="text/javascript">
 
-	var btn = document.getElementById('print');
-	btn.addEventListener("click", printFunction);
-	
-	// Print
-	function printFunction () {
-		var element = document.getElementById('element');
-		
-		var opt = {
-			  margin:       1,
-			  filename:     'reports.pdf',
-			  image:        { type: 'jpeg', quality: 0.98 },
-			  html2canvas:  { scale: 2 },
-			  jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
-			};
-		html2pdf(element, opt);
-		
-	}
-	
+  var btn = document.getElementById('print');
+  btn.addEventListener("click", printFunction);
+  
+  // Print
+  function printFunction () {
+    var element = document.getElementById('element');
+    
+    var opt = {
+        margin:       [1,2],
+        filename:     'reports.pdf',
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2 },
+        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+      };
+    html2pdf(element, opt);
+    
+  }
+  
 </script>
   
   
