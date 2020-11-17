@@ -6,10 +6,5 @@ $conn_string = "host=ec2-35-168-77-215.compute-1.amazonaws.com port=5432 dbname=
 $dbconn = pg_connect($conn_string);
 
 // Check Connection
-if ($dbconn->connect_error)
-{
-	die("Connection failed: ". $dbconn->connect_error);
 
-}
-echo "Connected";
 ?>
