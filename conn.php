@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 $host = "ec2-35-168-77-215.compute-1.amazonaws.com";
 $db = "d80artqjpkfnbo";
